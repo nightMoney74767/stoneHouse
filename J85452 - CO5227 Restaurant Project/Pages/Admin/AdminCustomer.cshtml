@@ -1,0 +1,77 @@
+﻿@page
+@model J85452___CO5227_Restaurant_Project.AdminCustomerModel
+@{
+    ViewData["Title"] = "Admin (Customers) - StoneHouse Restaurant";
+}
+
+<!-- This page displays a list of customers (updating this will be included in the future) -->
+<main>
+    <h1>Admin - Customers</h1>
+
+    <!-- If a user enters invalid data, the divider within this if statements appears -->
+    <!-- Code adapted from StackOverflow (Isma, 2017) -->
+    @if (!ModelState.IsValid && ModelState["DeleteItemError"].Errors.Count > 0)
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <p>Unable to delete database data. Please check if it is used in other records (e.g. a customer is linked to an order) and if so, try deleting those records first</p>
+        </div> 
+    }
+    <!-- End of adapted code -->
+
+    <a asp-page="/Admin">Admin Home</a>
+    <!-- Form section which allows users to search the customer table and to view all items in the table -->
+    <form method="post">
+        <h2>Search Customers</h2>
+        <div><input asp-for="Search" /></div>
+        <button type="submit" asp-page-handler="Search">Submit</button>
+        <button type="submit" asp-page-handler="All">View All Items</button>
+    </form>
+    <h2>Customers</h2>
+    <form method="post">
+        <!-- This table is inserted within a divider which is set to allow horizontal scrolling -->
+        <!-- Adapted from W3Schools (How TO - Responsive Tables, n.d) -->
+        <div style="overflow-x:auto;">
+        <!-- End of adapted code -->
+            <table>
+                <!-- Column headings -->
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Name</th>
+                        <th>Parish</th>
+                        <th>City</th>
+                        <th>County</th>
+                        <th>PostCode</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <!-- Retrieves each row from the customer table in the database-->
+                <tbody>
+                    @foreach (var CustomerClasses in Model.Customer)
+                    {
+                        <tr>
+                            <td>@CustomerClasses.CustomerID</td>
+                            <td>@CustomerClasses.CustomerName</td>
+                            <td>@CustomerClasses.CustomerStreetName</td>
+                            <td>@CustomerClasses.CustomerParish</td>
+                            <td>@CustomerClasses.CustomerCity</td>
+                            <td>@CustomerClasses.CustomerCounty</td>
+                            <td>@CustomerClasses.CustomerPostCode</td>
+                            <td>@CustomerClasses.CustomerPhone</td>
+                            <td><a href="mailto:@CustomerClasses.CustomerEmail">@CustomerClasses.CustomerEmail</a></td>
+                            <td>
+                                <a asp-page="/Admin/EditCustomer" asp-route-id="@CustomerClasses.CustomerID">Edit</a>
+                                <button type="submit" asp-page-handler="Delete" asp-route-customerID="@CustomerClasses.CustomerID">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
+</main>
+<footer>Admin - StoneHouse Restaurant</footer>

@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using J85452___CO5227_Restaurant_Project.Data
+@inject SignInManager<AppUserClass> SignInManager
+@inject UserManager<AppUserClass> UserManager
+
+<!DOCTYPE html>
+<!-- This layout page refines the website to imrpove the UX for mobile users -->
+<!-- CSS is linked from here - CSHTML pages no longer link it and the name has reverted to the original style.css name -->
+<!-- Even after publishing this website to the Plesk web server, various tweaks in the CSS did not carry over. This issue has been resolved. The cause of this issue remains unknown -->
+<!-- Added language in response to suggestions from Google's Lighthouse. Adaptef from Web.Dev (2019) -->
+<html lang="en">
+<!-- End of adapted code -->
+<head>
+    <meta charset="utf-8">
+
+    <!-- Link manifest for PWA (Progressive Web App). Adapted from Kirupa (n.d) -->
+    <!-- The scope property in the file is set to the root of the website so that a service worker can be registered (Sabry, 2018) -->
+    <link rel="manifest" href="/manifest.json" />
+    <!-- End of adapted code -->
+
+    <!-- Responsive design - adapted from W3Schools (Responsive Web Design - The Viewport, n.d) -->
+    <meta name="viewport" content="width=device-width" />
+    <!-- End of adapted code -->
+
+    <!-- Assign favicon - adapted from W3Schools (HTML Favicon, n.d) -->
+    <link rel="icon" type="image/x-icon" href="/faviconNew.ico" />
+    <!-- End of adapted code -->
+
+    <!-- Defines colours for URL bar in some mobile browsers - adapted from CSS-Tricks (Matuzovic. 2021) -->
+    <meta name="theme-color" content="#ad6500" />
+    <!-- End of adapted code -->
+
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <!-- Register service worker for PWA. Adapted from Kirupa (n.d) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('CO5227/serviceWorker.js');
+            });
+        }
+    </script>
+    <!-- End of adapted code -->
+
+    <header>
+        <!-- Top Navigation Menu -->
+        <div class="topnav">
+            <a class="active" asp-area="" asp-page="/Index">Stonehouse Restaurant</a>
+            <!-- Navigation links (hidden by default) -->
+            <div id="myLinks">
+                <a asp-area="" asp-page="/Index">Home</a>
+                <a asp-area="" asp-page="/Menu">Menu</a>
+                <a asp-area="" asp-page="/Find">Find Us</a>
+                <a asp-area="" asp-page="/Checkout">Checkout</a>
+                <a asp-area="" asp-page="/Contact">Contact Us</a>
+            </div>
+            <div class="accountSection" onclick="myFunction()">
+                @if (!SignInManager.IsSignedIn(User))
+                {
+                    <a asp-page="/Account/Login">Login</a>
+                } else
+                {
+                    <a asp-page="/Account/Logout">Logout</a>
+                }
+            </div>
+            <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </header>
+    <!-- Load an icon library to show a hamburger menu (bars) on small screens -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Menu JS -->
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+
+    <div>
+        @RenderBody()
+    </div>
+    <!-- Footer with validation links; these have been modified to connect via HTTPS -->
+    <footer>
+        <a href="https://validator.w3.org/check?uri=referer">Validate HTML</a>
+        <a href="https://jigsaw.w3.org/css-validator/check/referer">Validate CSS</a>
+        <!-- The admin link only appears if an admin is logged in -->
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-page="/Admin">Admin</a>
+        }
+        <p>This website was made as part of an assignment at the University of Chester and represents a fictional restaurant.</p>
+        <p>This website was therefore made for NON-COMMERCIAL purposes only.</p>
+        <p>Any references to real locations or persons (living or deceased) is entirely coincidental.</p>
+    </footer>
+</body>
+</html>

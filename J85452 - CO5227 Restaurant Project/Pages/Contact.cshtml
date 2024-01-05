@@ -1,0 +1,72 @@
+﻿@page
+@model J85452___CO5227_Restaurant_Project.Pages.ContactModel
+@{
+    ViewData["Title"] = "About & Contact Us - StoneHouse Restaurant";
+}
+
+<!-- This page displays contact details, information about the company and a form to send messages (to be added) -->
+<main>
+    <h1>About</h1>
+
+    <!-- If a user enters invalid data, the divider within this if statements appears -->
+    <!-- Code adapted from StackOverflow (Isma, 2017) -->
+    @if (!ModelState.IsValid && ModelState["CustomerContactFieldError"].Errors.Count > 0)
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <p>Unable to send your details and message because some of the information you entered is invalid. All fields must also be filled in</p>
+        </div> 
+    }
+    <!-- End of adapted code -->
+
+    <p>Since 2001, StoneHouse Restaurant is a world-class leader in quality home-made food. We offer wide range of starters, main courses, deserts and drinks.</p>
+    <p>Whether you're partial to burgers, brave enough to tackle the Vindaloo or fancy trying something new, there's something for everyone.</p>
+    <h2>Contact Us</h2>
+    <p>Please feel free to contact us if you would like to leave any comments, suggestions or enquiries:</p>
+    <div class="purple">
+        <img class="messageIcon" src="/img/contact.png" />
+        <p>Any questions or comments? Please feel free to get in touch over the phone (0800 123456) or email (<a href="mailto:enquiries@stonehouse.co.uk">enquiries@stonehouse.co.uk</a> for general enquiries, 
+            <a href="mailto:accounts@stonehouse.co.uk">accounts@stonehouse.co.uk</a> for account issues and 
+            <a href="mailto:sales@stonehouse.co.uk">sales@stonehouse.co.uk</a> for sales. You can also write to use: Hartford Way, Sealand Industrial Estate, Chester CH1 4NT
+        </p>
+    </div>
+    <h2>Send a Message to Us</h2>
+    <div class="blue">
+        <img class="messageIcon" src="/img/info.png" />
+        <p>When you click submit, an email message with the information you enter will be sent to us. You'll also be copied in for your records so be sure to enter a valid email address!</p>
+    </div>
+    <!-- This form captured customer details and a message - the message will be sent to an email address -->
+    <form method="post">
+        <div>Name: <input asp-for="Customer.CustomerName" /></div>
+        <div>Street Name: <input asp-for="Customer.CustomerStreetName" /></div>
+        <div>Parish: <input asp-for="Customer.CustomerParish" /></div>
+        <div>City: <input asp-for="Customer.CustomerCity" /></div>
+        <div>County: <input asp-for="Customer.CustomerCounty" /></div>
+        <div>PostCode: <input asp-for="Customer.CustomerPostCode" /></div>
+        <div>Phone Number: <input asp-for="Customer.CustomerPhone" /></div>
+        <div>Email Address: <input asp-for="Customer.CustomerEmail" /></div>
+        <div>Message: <input asp-for="message" /></div>
+        <input class="submitButton" type="submit" />
+    </form>
+
+    <h2>Map</h2>
+    <!-- Render a static map if JavaScript is absent. Code adapted from StackOverflow (Delgado, 2016) and CodeProject (Chu, 2017)-->
+    <noscript>
+        <div class="orange">
+            <img class="messageIcon" src="/img/warning.png" />
+            <p>Unable to retrieve interative map. Please ensure you've enabled JavaScript in a supported browser. Please consult your web browser's documentation on how to enable this</p>
+            <!-- JavaScript button that links to the JavaScript homepage (JavaScript, n.d) -->
+            <!-- Adapted from W3Schools (HTML Links, n.d) -->
+            <p>Not sure what JavaScript is? <a class="alertLink" href="https://www.javascript.com/">Learn More</a></p>
+            <!-- End of adapted code -->
+        </div>
+        <!-- Static map in the form of a PNG image -->
+        <img class="imgSection" src="~/img/map.png" class="map" alt="A map of StoneHouse Restaurant" />
+    </noscript>
+    <!-- End of adapted code -->
+    <!-- Embedded Google Map -->
+    <!-- Map location changed to follow the requirements according to the assignment brief -->
+    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1195.136918154017!2d-2.9113548!3d53.195005!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487add2587eb97bf%3A0x726e61cd7da87ff8!2sTesco%20Superstore!5e0!3m2!1sen!2suk!4v1634135614140!5m2!1sen!2suk"></iframe>
+
+</main>
+<footer>About & Contact Us - StoneHouse Restaurant</footer>

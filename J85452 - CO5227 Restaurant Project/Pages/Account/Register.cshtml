@@ -1,0 +1,42 @@
+﻿@page
+@model J85452___CO5227_Restaurant_Project.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register - StoneHouse Restaurant";
+}
+
+<!-- This page allows the user to register new accounts -->
+<main>
+    <h1>Register</h1>
+
+    <!-- If the login attempt fails, the divider within this if statements appears -->
+    <!-- Code adapted from StackOverflow (Isma, 2017) -->
+    @if (!ModelState.IsValid && ModelState["BadRegistrationError"].Errors.Count > 0)
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <p>Registration failed. Please ensure you include an email address and password (with a confirmation). Your password should be at least six characters long with at least one non-alphanumeric character and one uppercase letter</p>
+        </div> 
+    }
+    <!-- End of adapted code -->
+
+    <p>To register, please enter the following information. Existing user? <a asp-page="/Account/Login">Log in</a></p>
+    <form method="post">
+        <div>
+            <label asp-for="Input.Email"></label>
+            <input asp-for="Input.Email" class="form-ontrol"/>
+            <span asp-validation-for="Input.Email"></span>
+        </div>
+        <div>
+            <label asp-for="Input.Password"></label>
+            <input asp-for="Input.Password" class="form-ontrol"/>
+            <span asp-validation-for="Input.Password"></span>
+        </div>
+        <div>
+            <label asp-for="Input.ConfirmPassword"></label>
+            <input asp-for="Input.ConfirmPassword" class="form-ontrol"/>
+            <span asp-validation-for="Input.ConfirmPassword"></span>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+</main>
+<footer>Login - StoneHouse Restaurant</footer>

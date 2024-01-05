@@ -1,0 +1,58 @@
+﻿@page
+@model J85452___CO5227_Restaurant_Project.Pages.FindModel
+@{
+    ViewData["Title"] = "Find a Restaurant - StoneHouse Restaurant";
+}
+
+<!-- This page should allow users to find and display a list of restaurants that are open - from a database -->
+<main>
+    <h1>Find a Restaurant</h1>
+
+    <!-- Form section which allows users to search the restaurant table and to view all items in the table -->
+    <form method="post">
+        <h2>Search Restaurants</h2>
+        <div><input asp-for="Search" /></div>
+        <button type="submit" asp-page-handler="Search">Submit</button>
+        <button type="submit" asp-page-handler="All">View All Items</button>
+    </form>
+    <h2>Restaurants</h2>
+    <!-- This table is inserted within a divider which is set to allow horizontal scrolling -->
+    <!-- Adapted from W3Schools (How TO - Responsive Tables, n.d) -->
+    <div style="overflow-x:auto;">
+    <!-- End of adapted code -->
+        <table>
+            <!-- Columns -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Street Name</th>
+                    <th>Parish</th>
+                    <th>City</th>
+                    <th>County</th>
+                    <th>PostCode</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <!-- Retrieves each row from the restaurant table in the database-->
+            <tbody>
+                @foreach (var restaurantClasses in Model.Restaurant)
+                {
+                    <tr>
+                        <td>@restaurantClasses.RestaurantID</td>
+                        <td>@restaurantClasses.RestaurantName</td>
+                        <td>@restaurantClasses.RestaurantStreetName</td>
+                        <td>@restaurantClasses.RestaurantParish</td>
+                        <td>@restaurantClasses.RestaurantCity</td>
+                        <td>@restaurantClasses.RestaurantCounty</td>
+                        <td>@restaurantClasses.RestaurantPostCode</td>
+                        <td>@restaurantClasses.RestaurantPhone</td>
+                        <td><a href="mailto:@restaurantClasses.RestaurantEmail">@restaurantClasses.RestaurantEmail</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>Find a Restaurant - StoneHouse Restaurant</footer>

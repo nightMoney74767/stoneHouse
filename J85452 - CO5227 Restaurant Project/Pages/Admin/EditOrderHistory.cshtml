@@ -1,0 +1,31 @@
+﻿@page "{id:int}"
+@model J85452___CO5227_Restaurant_Project.Pages.EditOrderHistoryModel
+@{
+    ViewData["Title"] = "Admin (Order History) - StoneHouse Restaurant";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!-- This page allows the editing of order history items -->
+<main>
+    <h1>Edit Order History Item</h1>
+
+    <!-- If a user enters invalid data, the divider within this if statements appears -->
+    <!-- Code adapted from StackOverflow (Isma, 2017) -->
+    @if (!ModelState.IsValid && ModelState["EditItemError"].Errors.Count > 0)
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <p>Unable to edit order histooy because some of the details you entered are invalid. All fields must also be filled in</p>
+        </div> 
+    }
+    <!-- End of adapted code -->
+
+    <a asp-page="/Admin/AdminOrderHistory">Back</a>
+    <form method="post" enctype="multipart/form-data">
+        <div><input asp-for="OrderHistory.OrderID" type="hidden"/></div>
+        <div>Customer ID: <input asp-for="OrderHistory.CustomerID"/></div>
+        <div>Restaurant ID: <input asp-for="OrderHistory.RestaurantID"/></div>
+        <input class="submitButton" type="submit" asp-page-handler="Save" />
+    </form>
+</main>
+<footer>Admin - StoneHouse Restaurant</footer>

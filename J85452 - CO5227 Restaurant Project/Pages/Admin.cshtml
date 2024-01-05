@@ -1,0 +1,88 @@
+﻿@page
+@model J85452___CO5227_Restaurant_Project.Pages.AdminModel
+@{
+    ViewData["Title"] = "Admin - StoneHouse Restaurant";
+}
+
+<!-- This page should allow admins to update the menu and list of restaurants -->
+<main>
+    <h1>Admin</h1>
+
+    <!-- If a user enters invalid data, the divider within this if statements appears -->
+    <!-- Code adapted from StackOverflow (Isma, 2017) -->
+    @if (!ModelState.IsValid && ModelState.ErrorCount != 0)
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <p>Unable to add new database data because some of the details you entered are invalid. All fields must also be filled in</p>
+        </div> 
+    }
+    <!-- End of adapted code -->
+
+    <p>Welcome to the admin section of StoneHouse Restaurant. Here, you can add new restaurants and menu items. To manage these, the customers and order history, please follow the links below:</p>
+    <a asp-page="/Admin/AdminRestaurant">Manage restaurants</a>
+    <a asp-page="/Admin/AdminMenu">Manage menu</a>
+    <a asp-page="/Admin/AdminCustomer">Manage customers</a>
+    <a asp-page="/Admin/AdminOrderHistory">Manage order history</a>
+    <a asp-page="/Admin/AdminOrderItem">View order items</a>
+
+    <div class="blue">
+        <img class="messageIcon" src="/img/info.png" />
+        <p>You can also search for data using the search boxes in each page or by your browser's find tool. Press Ctrl + F in Windows, Linux or Chromebook or Cmd + F in macOS. In an IOS or Android browser, use the app's menu button</p>
+    </div>
+
+    <p>When you add a new item, its ID (where applicable) will be added automatically</p>
+    <p>If a record remains even if you try to delete it, check if it contains ID numbers for other tables. For example, if you're deleting a customer, try to delete the orders of that customer first.</p>
+    <p>Measures are in place so that deleting recrods cannot break referential integrity (causing some data to be orphaned)</p>
+    <p>Additionally, if you add or edit a record and the changes are not reflected in the database, check to ensure you are entering valid data. While many fields accept both numbers and letters, the price should only accept numerical values</p>
+        
+    <div class="orange">
+        <img class="messageIcon" src="/img/warning.png" />
+        <!-- JavaScript button that links to information about data breach fines (ITGovernance, n.d). This is included amid the severe consequences of such breaches in the UK and EU -->
+        <!-- Adapted from W3Schools (HTML Links, n.d) -->
+        <p>With great power comes great responsibility. Always respect user privacy and ensure that all data is correct and removed where required under data protection laws. Data breaches in the UK and EU can lead to fines of up to 4 percent of annual turnover. <button onclick="document.location='https://www.itgovernance.co.uk/dpa-and-gdpr-penalties'">Learn More</button></p>
+        <!-- End of adapted code -->
+    </div>
+        
+    <!-- Form to add a new offer; no longer in use -->
+    <!-- 
+        <form method="post">
+        <h2>Add new Offer</h2>
+        <div><input asp-for="Offer.OfferID" type="hidden" /></div>
+        <div>Name: <input asp-for="Offer.OfferName" /></div>
+        <div>Description: <input asp-for="Offer.OfferDescription" /></div>
+        <div>Start Date: <input asp-for="Offer.OfferStart" /></div>
+        <div>Expiry Date: <input asp-for="Offer.OfferExpiry" /></div>
+        <div>Reduction Percentage: <input asp-for="Offer.ReductionPercentage" /></div>
+        <input class="submitButton" type="submit" asp-page-handler="NewOffer" />
+    </form>
+    --> 
+
+    <!-- Form to add a new restaurant -->
+    <form method="post">
+        <h2>Add new Restaurant</h2>
+        <div><input asp-for="Restaurant.RestaurantID" type="hidden" /></div>
+        <div>Name: <input asp-for="Restaurant.RestaurantName" /></div>
+        <div>Street Name: <input asp-for="Restaurant.RestaurantStreetName" /></div>
+        <div>Parish: <input asp-for="Restaurant.RestaurantParish" /></div>
+        <div>City: <input asp-for="Restaurant.RestaurantCity" /></div>
+        <div>County: <input asp-for="Restaurant.RestaurantCounty" /></div>
+        <div>PostCode: <input asp-for="Restaurant.RestaurantPostCode" /></div>
+        <div>Phone Number: <input asp-for="Restaurant.RestaurantPhone" /></div>
+        <div>Email Address: <input asp-for="Restaurant.RestaurantEmail" /></div>
+        <input class="submitButton" type="submit" asp-page-handler="NewRestaurant" />
+    </form>
+
+    <!-- Form to add a new menu item -->
+    <form method="post" enctype="multipart/form-data">
+        <h2>Add new Menu Item</h2>
+        <div><input asp-for="Menu.ItemID" type="hidden" /></div>
+        <div>Name: <input asp-for="Menu.ItemName" /></div>
+        <div>Description: <input asp-for="Menu.ItemDescription" /></div>
+        <div>Number of items Available: <input asp-for="Menu.NumOfItemsAvailable" /></div>
+        <div>Price: <input asp-for="Menu.ItemPrice" /></div>
+        <div>Upload Image: <input type="file" id="imgFile" name="imgFile" multiple="multiple"/></div>
+        <input class="submitButton" type="submit" asp-page-handler="NewMenuItem" />
+    </form>
+</main>
+<footer>Admin - StoneHouse Restaurant</footer>

@@ -1,0 +1,104 @@
+/* This CSS file uses a media query that automatically applies a dark theme depending on browser and/or operating system settings */
+/* Styling for both themes */
+body {
+  font-family: "Arial";
+}
+
+h1 {
+  font-size: 36pt;
+}
+
+h2 {
+  font-size: 18pt;
+}
+
+a {
+  color: inherit;
+  padding: 10px;
+}
+
+/* Defaut light theme */
+/* Adapted from CSS Tricks (Rendle, 2018) */
+@media (prefers-color-scheme: light) {
+  /* end of adapted code */
+  body {
+    background-color: #d1d1d1;
+    margin: 0px
+  }
+
+  header {
+    text-align: center;
+    padding: 5px;
+  }
+
+  nav {
+    padding: 10px;
+    text-align: center;
+    font-size: 22pt;
+  }
+
+  main {
+    border-radius: 50px;
+    background-color: #e6e6e6;
+  }
+
+  .article {
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #e6e6e6;
+  }
+
+  footer {
+    margin: 0px;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+/* Defaut dark theme */
+/* Adapted from CSS Tricks (Rendle, 2018) */
+@media (prefers-color-scheme: dark) {
+  /* end of adapted code */
+  body {
+    background-color: #1c1c1c;
+    color: #ffffff;
+    margin: 0px
+  }
+
+  header {
+    text-align: center;
+    padding: 5px;
+  }
+
+  nav {
+    padding: 10px;
+    text-align: center;
+    font-size: 22pt;
+  }
+
+  main {
+    border-radius: 50px;
+    background-color: #2f2f2f;
+  }
+
+  .article {
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #2f2f2f;
+  }
+
+  footer {
+    margin: 0px;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+/*
+References:
+Rendle, R. (2018). Dark Mode in CSS. Retrieved from CSS-Tricks: https://css-tricks.com/dark-modes-with-css/
+*/

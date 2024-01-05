@@ -1,0 +1,106 @@
+﻿@page
+@using J85452___CO5227_Restaurant_Project.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUserClass> SignInManager
+@inject UserManager<AppUserClass> UserManager
+@model J85452___CO5227_Restaurant_Project.Pages.MenuModel
+@{
+    ViewData["Title"] = "Menu - StoneHouse Restaurant";
+}
+<!-- This page should display a menu that users can sort and filter (to be added) -->
+<main>
+    <h1>Menu</h1>
+
+    <!-- If an error occurs when purchasing an item, this divider appears -->
+    <!-- Code adapted from StackOverflow (Isma, 2017) -->
+    @if (!ModelState.IsValid && ModelState["BasketAddError"].Errors.Count > 0)
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <p>Unable to add item to basket. Please log in to continue. If you're already logged in, try refreshing this page. If you continue to experience problems, please contact support.</p>
+        </div> 
+    }
+    <!-- End of adapted code -->
+
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <!-- Present this divider for users who are signed out -->
+        <div class="orange">
+            <img class="messageIcon" src="/img/warning.png" />
+            <!-- JavaScript buttons that link to other pages -->
+            <!-- Adapted from W3Schools (HTML Links, n.d) -->
+            <p>You're not logged in yet. <button onclick="document.location='/Account/Login'">Login</button><button onclick="document.location='/Account/Register'">Register</button></p>
+            <!-- End of adapted code -->
+        </div>
+    }
+    <!-- Form section which allows users to search the menu and to view all items in the menu table -->
+    <form method="post">
+        <h2>Search</h2>
+        <div><input asp-for="Search" /></div>
+        <button type="submit" asp-page-handler="Search">Submit</button>
+        <button type="submit" asp-page-handler="All">View All Items</button>
+    </form>
+    <h2>Items</h2>
+    <!-- This table is inserted within a divider which is set to allow horizontal scrolling -->
+    <!-- Adapted from W3Schools (How TO - Responsive Tables, n.d) -->
+    <div style="overflow-x:auto;">
+    <!-- End of adapted code -->
+        <table>
+            <!-- Columns -->
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Number of items Available</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <th>Purchase</th>
+                    }
+                </tr>
+            </thead>
+            <!-- Retrieves each row from the menu table in the database -->
+            <tbody>
+                @foreach (var menuClasses in Model.Menu)
+                {
+                    <tr>
+                        <td>@menuClasses.ItemID</td>
+                        <td>@menuClasses.ItemName</td>
+                        <td>@menuClasses.ItemDescription</td>
+                        <td>@menuClasses.NumOfItemsAvailable</td>
+                        <td>@menuClasses.ItemPrice.ToString("C")</td>
+                        <!-- Images -->
+                        @{
+                            try
+                            {
+                                <td><img class="menuImg" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(menuClasses.ItemImage))" alt="Image of @menuClasses.ItemName" /></td>
+                            }
+                            catch
+                            {
+                                <td><img src="~/img/NoImage.png" alt="No image available" /></td>
+                            }
+                        }
+                        <!-- Buttons to purchase items -->
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            if (menuClasses.NumOfItemsAvailable > 0)
+                            {
+                                <td>
+                                    <form method="post">
+                                        <button type="submit" asp-page-handler="Buy" asp-route-itemID="@menuClasses.ItemID">Add to Basket</button>
+                                    </form>
+                                </td>
+                            } else
+                            {
+                                <td>Out of Stock</td>
+                            }
+                        } 
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>Menu - StoneHouse Restaurant</footer>

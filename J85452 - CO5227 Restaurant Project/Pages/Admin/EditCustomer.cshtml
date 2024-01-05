@@ -1,0 +1,37 @@
+﻿@page "{id:int}"
+@model J85452___CO5227_Restaurant_Project.Pages.EditCustomerModel
+@{
+    ViewData["Title"] = "Admin (Customer) - StoneHouse Restaurant";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!-- This page allows the editing of customers -->
+<main>
+    <h1>Edit Customer</h1>
+
+    <!-- If a user enters invalid data, the divider within this if statements appears -->
+    <!-- Code adapted from StackOverflow (Isma, 2017) -->
+    @if (!ModelState.IsValid && ModelState["EditItemError"].Errors.Count > 0)
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <p>Unable to edit customer because some of the details you entered are invalid. All fields must also be filled in</p>
+        </div> 
+    }
+    <!-- End of adapted code -->
+
+    <a asp-page="/Admin/AdminCustomer">Back</a>
+    <form method="post">
+        <div><input asp-for="Customer.CustomerID" type="hidden" /></div>
+        <div>Name: <input asp-for="Customer.CustomerName" /></div>
+        <div>Street Name: <input asp-for="Customer.CustomerStreetName" /></div>
+        <div>Parish: <input asp-for="Customer.CustomerParish" /></div>
+        <div>City: <input asp-for="Customer.CustomerCity" /></div>
+        <div>County: <input asp-for="Customer.CustomerCounty" /></div>
+        <div>PostCode: <input asp-for="Customer.CustomerPostCode" /></div>
+        <div>Phone Number: <input asp-for="Customer.CustomerPhone" /></div>
+        <div>Email Address: <input asp-for="Customer.CustomerEmail" /></div>
+        <input class="submitButton" type="submit" asp-page-handler="Save" />
+    </form>
+</main>
+<footer>Admin - StoneHouse Restaurant</footer>

@@ -1,0 +1,103 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home - StoneHouse Restaurant";
+}
+
+<!-- For login process -->
+@using Microsoft.AspNetCore.Identity
+@using J85452___CO5227_Restaurant_Project.Data
+@inject SignInManager<AppUserClass> SignInManager
+@inject UserManager<AppUserClass> UserManager
+
+<!-- The development of the HTML and CSS pages began before the beginning of the academic year -->
+<!-- This is the homepage of this ASP.Net website -->
+<main>
+    <h1>Welcome</h1>
+    <!-- Display a warning if JavaScript is disabled. Code adapted from StackOverflow (Delgado, 2016) and CodeProject (Chu, 2017)-->
+        <noscript>
+            <div class="orange">
+                <img class="messageIcon" src="/img/warning.png" />
+                <p>JavaScript is currently disabled in your web browser. Some functionality may be unavailable. For the best experience, please enable JavaScript in a supported browser. Please consult your web browser's documentation on how to enable this</p>
+                <!-- JavaScript button that links to the JavaScript homepage (JavaScript, n.d) -->
+                <!-- Adapted from W3Schools (HTML Links, n.d) -->
+                <p>Not sure what JavaScript is? <a class="alertLink" href="https://www.javascript.com/">Learn More</a></p>
+                <!-- End of adapted code -->
+            </div>
+        </noscript>
+        <!-- End of adapted code -->
+    <!-- If user is signed in, present the divider below -->
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="green">
+            <img class="messageIcon" src="/img/positive.png" />
+            <p>You're logged in as @UserManager.GetUserName(User)</p>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="blue">
+                <img class="messageIcon" src="/img/info.png" />
+                <p>Your account has been assigned as an admin.
+                <!-- JavaScript buttons that link to admin page -->
+                <!-- Adapted from W3Schools (HTML Links, n.d) -->
+                <button onclick="document.location='/Admin'">Go to Admin Pages</button>
+                <!-- End of adapted code -->
+            </div>
+        }
+    } else
+    {
+        <!-- Present this divider for users who are signed out -->
+        <div class="orange">
+            <img class="messageIcon" src="/img/warning.png" />
+            <!-- JavaScript buttons that link to other pages -->
+            <!-- Adapted from W3Schools (HTML Links, n.d) -->
+            <p>You're not logged in yet. <button onclick="document.location='/Account/Login'">Login</button><button onclick="document.location='/Account/Register'">Register</button></p>
+            <!-- End of adapted code -->
+        </div>
+    }
+
+    <p>
+        Welcome to the official website for StoneHouse Restaurant. Here, you can find our menu,
+        find a restaurant near you and check our opening times.
+    </p>
+    <h2>Menu Summary</h2>
+    <!-- This table is inserted within a divider which is set to allow horizontal scrolling -->
+    <!-- Adapted from W3Schools (How TO - Responsive Tables, n.d) -->
+    <div style="overflow-x:auto;">
+    <!-- End of adapted code -->
+        <table>
+            <thead>
+                <!-- Columns -->
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+                <!-- Retrieves each row from the menu table in the database -->
+            <tbody>
+                @foreach (var menuClasses in Model.Menu)
+                {
+                    <tr>
+                        <td>@menuClasses.ItemName</td>
+                        <td>@menuClasses.ItemPrice.ToString("C")</td>
+                        <!-- Images -->
+                        @{
+                            try
+                            {
+                                <td><img class="menuImg" src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(menuClasses.ItemImage))" alt="Image of @menuClasses.ItemName" /></td>
+                            }
+                            catch
+                            {
+                                <td><img src="~/img/NoImage.png" alt="No image available" /></td>
+                            }
+                        }
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>  
+</main>
+<footer>Home - StoneHouse Restaurant</footer>

@@ -1,0 +1,141 @@
+﻿@page
+@using J85452___CO5227_Restaurant_Project.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.Options
+@inject IOptions<StripeSettingsClass> Stripe
+@inject SignInManager<AppUserClass> SignInManager
+@inject UserManager<AppUserClass> UserManager
+@model J85452___CO5227_Restaurant_Project.Pages.CheckoutModel
+@{
+    ViewData["Title"] = "Checkout - StoneHouse Restaurant";
+}
+
+<!-- This page should display the checkout with each item to be purchased. The purchase will also be logged -->
+<main>
+    <h1>Checkout</h1>
+
+    <!-- Display user's basket if the user is signed in, as long as there are items in the basket. Display an error message otherwise -->
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="green">
+            <img class="messageIcon" src="/img/positive.png" />
+            <p>You're logged in as @UserManager.GetUserName(User)</p>
+        </div>
+
+        <!-- Display a warning if JavaScript is disabled. Code adapted from StackOverflow (Delgado, 2016) and CodeProject (Chu, 2017)-->
+        <noscript>
+            <div class="orange">
+                <img class="messageIcon" src="/img/warning.png" />
+                <p>JavaScript is required in order to process your purchase. Please ensure you've enabled JavaScript in a supported browser. Please consult your web browser's documentation on how to enable this</p>
+                <!-- JavaScript button that links to the JavaScript homepage (JavaScript, n.d) -->
+                <!-- Adapted from W3Schools (HTML Links, n.d) -->
+                <p>Not sure what JavaScript is? <a class="alertLink" href="https://www.javascript.com/">Learn More</a></p>
+                <!-- End of adapted code -->
+            </div>
+        </noscript>
+        <!-- End of adapted code -->
+        <!-- If the basket cannot be retrieved for any reason, display this divier -->
+        <!-- Code adapted from StackOverflow (Isma, 2017) -->
+        @if (!ModelState.IsValid && ModelState["CheckoutError"].Errors.Count > 0)
+        {
+            <div class="red">
+                <img class="messageIcon" src="/img/error.png" />
+                <!-- JavaScript button that links to the contact page -->
+                <!-- Adapted from W3Schools (HTML Links, n.d) -->
+                <p>Unable to retrieve basket. Please log in to continue. If you're already logged in, try refreshing this page. If you continue to experience problems, please contact support.</p>
+                <!-- End of adapted code -->
+            </div>
+        } else
+        {
+            @if (Model.Total > 0)
+            {
+                <form method="post">
+                    <!-- Form section which displays checkout -->
+                    <!-- This table is inserted within a divider which is set to allow horizontal scrolling -->
+                    <!-- Adapted from W3Schools (How TO - Responsive Tables, n.d) -->
+                    <div style="overflow-x:auto;">
+                    <!-- End of adapted code -->
+                        <table>
+                            <!-- Columns -->
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Edit</th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
+                                    <th>Number of Items Left</th>
+                                </tr>
+                            </thead>
+                            <!-- Items in basket; quantities can be edited -->
+                            <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    var subtotal = item.ItemPrice * item.Quantity;
+                                    MenuClass menuItem = await Model._db.Menu.FindAsync(item.ItemID);
+                                    int numOfItemsAvailable = menuItem.NumOfItemsAvailable;
+
+                                    <tr>
+                                        <td>@item.ItemID</td>
+                                        <td>@menuItem.ItemName</td>
+                                        <td>@item.ItemDescription</td>
+                                        <td>@item.ItemPrice.ToString("C")</td>
+                                        <td>
+                                            <!-- Allow users to increase the quantity only if it not equal to the number of items avaialble attribute for the associated menu item -->
+                                            @if (item.Quantity == numOfItemsAvailable)
+                                            {
+                                                <p>No more items available</p>
+                                            } else
+                                            {
+                                                <button type="submit" asp-route-itemID="@item.ItemID" asp-route-quantity="@item.Quantity" asp-page-handler="Increment">+</button>
+                                            }
+                                            <!-- Allow users to decrease the quantity of an item. Delete the item if the quantity reaches 0 -->
+                                            <button type="submit" asp-route-itemID="@item.ItemID" asp-route-quantity="@item.Quantity" asp-page-handler="Decrement">-</button>
+                                        </td>
+                                        <td>@item.Quantity</td>
+                                        <td>@subtotal.ToString("C")</td>
+                                        <td>@menuItem.NumOfItemsAvailable</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Display total cost -->
+                    <p>Total cost: @Model.Total.ToString("C")</p>
+                </form>
+
+                <!-- Display Stripe payment button -->
+                <form asp-page-handler="Charge" asp-route-amount="@Model.AmountPayable" method="post">
+                    <script src="https://checkout.stripe.com/v2/checkout.js" 
+                        class="stripe-button"
+                        data-key="@Stripe.Value.PublishableKey"
+                        data-locale="auto"
+                        data-description="Pay with Card"
+                        data-amount="@Model.AmountPayable"
+                        data-currency="GBP">
+                    </script>
+                </form>
+            } else
+            {
+                <!-- Info box alerting users with empty baskets -->
+                <div class="blue">
+                    <img class="messageIcon" src="/img/info.png" />
+                    <p>Your basket is currently empty. Please go to the menu page to add items. Your basket will appear here.</p>
+                </div>
+            }
+        }
+    } else
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <!-- JavaScript button that links to the contact page -->
+            <!-- Adapted from W3Schools (HTML Links, n.d) -->
+            <p>Unable to retrieve basket. Please log in to continue. If you're already logged in, try refreshing this page. If you continue to experience problems, please contact support.</p>
+            <!-- End of adapted code -->
+        </div>
+    }
+</main>
+<footer>Checkout - StoneHouse Restaurant</footer>

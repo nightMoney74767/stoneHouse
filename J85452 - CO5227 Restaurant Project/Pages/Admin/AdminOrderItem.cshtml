@@ -1,0 +1,61 @@
+﻿@page
+@model J85452___CO5227_Restaurant_Project.Pages.AdminOrderItemModel
+@{
+}
+
+<!-- This page displays the order history -->
+<main>
+    <h1>Admin - Order Items</h1>
+
+    <!-- If the deletion of a record fails, the divider within this if statements appears -->
+    <!-- Code adapted from StackOverflow (Isma, 2017) -->
+    @if (!ModelState.IsValid && ModelState["DeleteItemError"].Errors.Count > 0)
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <p>Unable to delete database data. Please check if it is used in other records (e.g. a customer is linked to an order) and if so, try deleting those records first</p>
+        </div> 
+    }
+    <!-- End of adapted code -->
+
+    <a asp-page="/Admin">Admin Home</a>
+    <!-- Form section which allows users to search the order history table and to view all items in the table -->
+    <form method="post">
+        <h2>Search Order Items</h2>
+        <div><input asp-for="Search" /></div>
+        <button type="submit" asp-page-handler="Search">Submit</button>
+        <button type="submit" asp-page-handler="All">View All Items</button>
+    </form>
+
+    <h2>Order Items</h2>
+    <form method="post">
+        <!-- This table is inserted within a divider which is set to allow horizontal scrolling -->
+        <!-- Adapted from W3Schools (How TO - Responsive Tables, n.d) -->
+        <div style="overflow-x:auto;">
+        <!-- End of adapted code -->
+            <table>
+                <!-- Column headings -->
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Item ID</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                </thead>
+                <!-- Retrieves each row from the order history table in the database -->
+                <tbody>
+                    @foreach (var orderItemClasses in Model.OrderItem)
+                    {
+                        <tr>
+                            <td>@orderItemClasses.OrderID</td>
+                            <td>@orderItemClasses.ItemID</td>
+                            <td>@orderItemClasses.Quantity</td>
+                            <td>@orderItemClasses.Subtotal.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
+</main>
+<footer>Admin - StoneHouse Restaurant</footer>

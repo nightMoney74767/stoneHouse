@@ -1,0 +1,81 @@
+﻿@page
+@model J85452___CO5227_Restaurant_Project.Pages.AdminMenuModel
+@{
+    ViewData["Title"] = "Admin (Menu) - StoneHouse Restaurant";
+}
+
+<!-- This page displays a list of menu items (updating this will be included in the future) -->
+<main>
+    <h1>Admin - Menu</h1>
+
+    <!-- If a user enters invalid data, the divider within this if statements appears -->
+    <!-- Code adapted from StackOverflow (Isma, 2017) -->
+    @if (!ModelState.IsValid && ModelState["DeleteItemError"].Errors.Count > 0)
+    {
+        <div class="red">
+            <img class="messageIcon" src="/img/error.png" />
+            <p>Unable to delete database data. Please check if it is used in other records (e.g. a customer is linked to an order) and if so, try deleting those records first</p>
+        </div> 
+    }
+    <!-- End of adapted code -->
+
+    <a asp-page="/Admin">Admin Home</a>
+    <!-- Form section which allows users to search the menu table and to view all items in the table -->
+    <form method="post">
+        <h2>Search Menu</h2>
+        <div><input asp-for="Search" /></div>
+        <button type="submit" asp-page-handler="Search">Submit</button>
+        <button type="submit" asp-page-handler="All">View All Items</button>
+    </form>
+    <form method="post">
+        <h2>Menu Items</h2>
+        <!-- This table is inserted within a divider which is set to allow horizontal scrolling -->
+        <!-- Adapted from W3Schools (How TO - Responsive Tables, n.d) -->
+        <div style="overflow-x:auto;">
+        <!-- End of adapted code -->
+            <table>
+                <!-- Columns -->
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Number of items Available</th>
+                        <th>Price</th>
+                        <th>Image</th>
+                        <th>Manage</th>
+                    </tr>
+                </thead>
+                <!-- Retrieves each row from the menu table in the database -->
+                <tbody>
+                    @foreach (var menuClasses in Model.Menu)
+                    {
+                        <tr>
+                            <td>@menuClasses.ItemID</td>
+                            <td>@menuClasses.ItemName</td>
+                            <td>@menuClasses.ItemDescription</td>
+                            <td>@menuClasses.NumOfItemsAvailable</td>
+                            <td>@menuClasses.ItemPrice.ToString("C")</td>
+                            <!-- Images -->
+                            @{
+                                try
+                                {
+                                    <td><img src="@string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(menuClasses.ItemImage))" alt="Image of @menuClasses.ItemName" /></td>
+                                }
+                                catch
+                                {
+                                    <td><img src="~/img/NoImage.png" alt="No image available" /></td>
+                                }
+                            }
+                            <td>
+                                <a asp-page="/Admin/EditMenu" asp-route-id="@menuClasses.ItemID">Edit</a>
+                                <button type="submit" asp-page-handler="Delete" asp-route-menuID="@menuClasses.ItemID">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </form>
+</main>
+<footer>Admin - StoneHouse Restaurant</footer>

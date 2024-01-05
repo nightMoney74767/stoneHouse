@@ -1,0 +1,269 @@
+﻿/* This is the original CSS file for the website */
+/* Styling for both themes */
+
+/* Global settings for all other styles (i.e. the font is always the same) */
+body {
+    font-family: "Arial";
+    margin: 0px;
+}
+
+/* Heading level 1 */
+h1 {
+    font-size: 24pt;
+    color: #ffffff;
+}
+
+/* Heading level 2 */
+h2 {
+    font-size: 18pt;
+}
+
+/* Hyperlinks */
+a {
+    padding: 10px;
+}
+
+.headerLink, .headerLink:hover {
+    color: #ffffff;
+}
+
+/* Main content, alert boxes and tables */
+main, .red, .orange, .blue, .green, table {
+    /* Adapted from W3Schools (CSS Layout - Horizontal & Vertical Align, n.d) */
+    margin-left: auto;
+    margin-right: auto;
+    /* End of adapted code */
+    max-width: 1500px;
+    padding: 20px;
+    border-radius: 10px;
+    /* Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 20px rgb(0 0 0 / 0.1);
+    /* End of adapted code */
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/* Tables */
+table {
+    text-align: center;
+    width: 100%;
+}
+
+/* Table items */
+td {
+    /* Adapted from W3Schools (CSS Layout - Horizontal & Vertical Align, n.d) */
+    margin-left: auto;
+    margin-right: auto;
+    /* End of adapted code */
+    max-width: 1500px;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/* Bold text for table headers */
+/* Adapted from W3Schools (CSS font-weight Property, n.d) */
+.bold {
+    font-weight: bold;
+}
+/* End of adapted code */
+
+/* Error box (appears when the website runs into a problem) */
+.red {
+    /* Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 20px rgb(201 0 0 / 0.1);
+    /* End of adapted code */
+    border-style: solid;
+    border-color: #c90000;
+}
+
+/* Warning box (appears when an issue occurs but is not severe enough to prevent a user from having the best experience) */
+.orange {
+    /* Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 20px rgb(166 157 0 / 0.1);
+    /* End of adapted code */
+    border-style: solid;
+    border-color: #a69d00;
+}
+
+/* Note box (used to make useful information stand out) */
+.blue {
+    /* Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 20px rgb(0 105 224 / 0.1);
+    /* End of adapted code */
+    border-style: solid;
+    border-color: #0069e0;
+}
+
+/* Positivity box (used when displaying positive notes such as a successful login) */
+.green {
+    /* Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 20px rgb(0 161 78 / 0.1);
+    /* End of adapted code */
+    border-style: solid;
+    border-color: #00a14e;
+}
+
+/* Iframes (Google Map) and the static map */
+iframe, .map {
+    border-radius: 10px;
+    border: none;
+    /* Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 20px rgb(0 0 0 / 0.1);
+    /* End of adapted code */
+    /* Adapted from HTML.Com (Wood, 2015-2020) */
+    width: 100%;
+    /* End of adapted code */
+}
+
+/* Iframes (Google Map) */
+iframe {
+    height: 500px;
+}
+
+/* Logo image */
+.logo {
+    margin-top: 20px;
+}
+
+/* Header for the layout page (contains logo and restaurant name) */
+header {
+    text-align: center;
+    padding: 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    /* Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 20px rgb(0 0 0 / 0.1);
+    /* End of adapted code */
+
+    background-color: #ad6500;
+}
+
+/* Navigation bar for layout page */
+nav {
+    padding: 20px;
+    text-align: center;
+    font-size: 22pt;
+}
+
+/* Footer */
+footer {
+    margin: 0px;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Buttons, images and input fields */
+button, .submitButton, input, .imgFile {
+    /* Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 20px rgb(0 0 0 / 0.1);
+    /* End of adapted code */
+    padding: 5px;
+    margin: 2px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+/* Buttons when clicked */
+/* Adapted from StackOverflow (jansmolders86, 2013) */
+.submitButton:active, button:active {
+    /* End of adapted code*/
+    background-color: #ad6500;
+}
+
+/* Defaut light theme */
+/* Adapted from CSS-Tricks (Rendle, 2018) */
+@media (prefers-color-scheme: light) {
+    /* End of adapted code */
+    body {
+        background-color: #d1d1d1;
+    }
+
+    /* Input fields */
+    input {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    /* Main content */
+    main {
+        background-color: #e6e6e6;
+    }
+
+    /* Links (when hovering the mouse cursor over them) */
+    a:hover {
+        color: #ad8500;
+    }
+
+    /* Iframes (Google Map), static map and tables */
+    .map, iframe, table, .red, .orange, .blue, .green {
+        background-color: #f2f2f2;
+    }
+
+    /* Links */
+    a {
+        color: #000000;
+    }
+
+    /* Buttons */
+    .submitButton, button {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    /* Buttons (when hovering the mouse cursor over them) */
+    .submitButton:hover, button:hover {
+        background-color: #ad8500;
+        color: #ffffff;
+    }
+}
+
+/* Defaut dark theme */
+/* Adapted from CSS-Tricks (Rendle, 2018) */
+@media (prefers-color-scheme: dark) {
+    /* End of adapted code */
+    body {
+        background-color: #1c1c1c;
+        color: #ffffff;
+    }
+
+    /* Input fields */
+    input {
+        background-color: #1c1c1c;
+        color: #ffffff;
+    }
+
+    /* Main content */
+    main {
+        background-color: #2f2f2f;
+    }
+
+    /* Links (when hovering the mouse cursor over them) */
+    a:hover {
+        color: #cfa723;
+    }
+
+    /* Iframes (Google Map), static map and tables */
+    .map, iframe, table {
+        background-color: #424242;
+    }
+
+    /* Links */
+    a {
+        color: #FFFFFF;
+    }
+
+    /* Buttons */
+    .submitButton, button {
+        background-color: #1c1c1c;
+        color: #ffffff;
+    }
+
+    /* Buttons (when hovering the mouse cursor over them) */
+    .submitButton:hover, button:hover {
+        background-color: #cfa723;
+    }
+}
