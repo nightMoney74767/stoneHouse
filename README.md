@@ -9,8 +9,26 @@ The wbesite has been built upon a simple HTML website I have created before the 
 
 This website, provides an online ordering system for a fictional restaurant. Menu items, order history and other data are stored in an SQL Server database (described further below). Optimisations have been made to ensure the best possible experience for mobile users. Users can optionally install the website as a Progressive Web App (PWA) using a supported web browser (e.g. Google Chrome and Microsoft Edge). PWAs offer an app-like experience (with no browser toolbars) with easy access from a mobile device's home screen or via a desktop operating system's app launcher.
 
+<h1>Installation</h1>
+If you'd like to run this project on your own device or webserver, please follow these steps:
+<ol>
+        <li>setup an SQL instance. For local databases, install <a href="https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver16">SQL Express</a>. Run through the setup utility to install a local server with a username and password of your choice</li>
+        <li>download and install <a href="https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16">SQL Server Management Studio (SSMS)</a></li>
+        <li>open SSMS and login to your SQL instance</li>
+        <li>create a new query and run it with the <a href="https://github.com/nightMoney74767/stoneHouse/blob/main/Other%20Items/BuildTables.sql">BuildTables</a> script. This will setup your SQL instance with the required tables</li>
+        <li>download and run the installer for <a href="https://visualstudio.microsoft.com/downloads/">Visual Studio</a>. The community edition is available for free. When asked, select the ASP.Net workload and click install</li>
+        <li>download the project code and open the .sln file in Visual Studio</li>
+        <li>open the appsettings.json file and modify it to reflect your SQL database</li>
+        <li>go to the existing migration (in solution explorer) and copy the code for creating ASP.NET identity tables</li>
+        <li>delete the existing migration then open the Nuget package manager (tools > Nuget packet manager > package manager console)</li>
+        <li>run add-migration initialCreate and paste the copied code to the Up method</li>
+        <li>run update-database and check that the tables were added to your database in SSMS</li>
+        <li>to enable the admin functionality, run the project and go to the registration page. Create an account using the fictional address admin@stonehouse.co.uk and provide your own password. Close the browser window and open the startup.cs file. Uncomment the code that calls the CreateRoles method. Run the project again, log-in using the admin email and password. You should now be able to access the admin pages. You can comment out the code again</li>
+      </ol>
+      
 <h1>Screenshots</h1>
-Note: the website has two themes which are automatically set based on the settings of the user's web browser and/or operating system (i.e. the dark theme is used when the browser's theme is also dark). Screenshots have been taken within Windows 11 and Android 10.
+Note: the website has two themes which are automatically set based on the settings of the user's web browser and/or operating system (i.e. the dark theme is used when the browser's theme is also dark). Screenshots have been taken within Windows 11 and Android 10, using the original styling which you can find <a href="https://github.com/nightMoney74767/stoneHouse/blob/main/J85452%20-%20CO5227%20Restaurant%20Project/wwwroot/css/StyleSheetOG.css">here</a>. Following a revisit of the project in 2023, the CSS was modified to provide a better mobile experience.
+
 <h2>Light Theme</h2>
 <img src=https://github.com/nightMoney74767/stoneHouse/blob/main/Other%20Items/ChromeLight2.png alt="Screenshots of the website in light theme"/>
 
