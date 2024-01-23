@@ -1,6 +1,63 @@
-﻿/* This CSS file uses a media query that automatically applies a dark theme depending on browser and/or operating system settings */
-/* This CSS file replaces the one that was created upon project creation */
+﻿/* This CSS file simplifies the styling and reduces the number of duplicate rules */
 /* Styling for both themes */
+
+/* Style the navigation menu (https://www.w3schools.com/howto/howto_js_mobile_navbar.asp) */
+.topnav {
+    overflow: hidden;
+    position: relative;
+}
+
+    /* Hide the links inside the navigation menu (except for logo/home) */
+    .topnav #myLinks {
+        margin-top: 5px;
+        display: none;
+    }
+
+    /* Style navigation menu links */
+    .topnav a, .accountSection {
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+    }
+
+        /* Style the hamburger menu */
+        .topnav a.icon, .accountSection {
+            display: block;
+            position: absolute;
+            top: 0;
+            /* Adapted from CSS-Tricks (Cope, 2011) */
+            box-shadow: 0 0px 20px rgb(0 0 0 / 0.1);
+        }
+
+        .topnav a.icon {
+            left: 0;
+        }
+
+.accountSection {
+    right: 0;
+}
+
+.accountSection {
+    padding: 0px;
+}
+
+    .accountSection a, .accountSection p {
+        margin: 0px;
+    }
+
+    .accountSection p {
+        padding: 14px;
+    }
+
+/* Style the active link (or home/logo) */
+.active, .active:hover {
+    color: white;
+}
+
+.active {
+    text-align: center;
+}
 
 /* Global settings for all other styles (i.e. the font is always the same) */
 body {
@@ -11,7 +68,6 @@ body {
 /* Heading level 1 */
 h1 {
     font-size: 24pt;
-    color: #ffffff;
 }
 
 /* Heading level 2 */
@@ -19,34 +75,23 @@ h2 {
     font-size: 18pt;
 }
 
-/* Hyperlinks */
-a {
-    padding: 10px;
-}
-
 .headerLink, .headerLink:hover {
     color: #ffffff;
 }
 
 /* Main content, alert boxes and tables */
-main, .red, .orange, .blue, .green, table {
+main, .purple, .red, .orange, .blue, .green, table, .redLoud, .imgSection {
     /* Adapted from W3Schools (CSS Layout - Horizontal & Vertical Align, n.d) */
     margin-left: auto;
     margin-right: auto;
     /* End of adapted code */
     max-width: 1500px;
-    padding: 20px;
-    border-radius: 10px;
-    /* Adapted from CSS-Tricks (Cope, 2011) */
-    box-shadow: 0 0px 20px rgb(0 0 0 / 0.1);
-    /* End of adapted code */
     margin-bottom: 20px;
     margin-top: 20px;
 }
 
 /* Tables */
 table {
-    text-align: center;
     width: 100%;
 }
 
@@ -57,11 +102,8 @@ td {
     margin-right: auto;
     /* End of adapted code */
     max-width: 1500px;
-    padding: 20px;
     margin-bottom: 20px;
-    margin-top: 20px;
-    text-align: center;
-    border-style: solid;
+    /* border-style: solid; */
     border-width: 1px;
 }
 
@@ -72,204 +114,253 @@ td {
 }
 /* End of adapted code */
 
+/* Contact Info */
+.purple, .map {
+    border-top-color: #7c0eeb;
+}
+
+/* IE Support Warning */
+.redLoud {
+    border-top-color: #c90000;
+    color: #c90000
+}
+
 /* Error box (appears when the website runs into a problem) */
 .red {
-    /* Adapted from CSS-Tricks (Cope, 2011) */
-    box-shadow: 0 0px 20px rgb(201 0 0 / 0.1);
-    /* End of adapted code */
-    border-style: solid;
-    border-color: #c90000;
+    border-top-color: #c90000;
 }
 
 /* Warning box (appears when an issue occurs but is not severe enough to prevent a user from having the best experience) */
 .orange {
-    /* Adapted from CSS-Tricks (Cope, 2011) */
-    box-shadow: 0 0px 20px rgb(166 157 0 / 0.1);
-    /* End of adapted code */
-    border-style: solid;
-    border-color: #a69d00;
+    border-top-color: #a69d00;
 }
 
 /* Note box (used to make useful information stand out) */
 .blue {
-    /* Adapted from CSS-Tricks (Cope, 2011) */
-    box-shadow: 0 0px 20px rgb(0 105 224 / 0.1);
-    /* End of adapted code */
-    border-style: solid;
-    border-color: #0069e0;
+    border-top-color: #0069e0;
 }
 
 /* Positivity box (used when displaying positive notes such as a successful login) */
 .green {
-    /* Adapted from CSS-Tricks (Cope, 2011) */
-    box-shadow: 0 0px 20px rgb(0 161 78 / 0.1);
-    /* End of adapted code */
-    border-style: solid;
-    border-color: #00a14e;
+    border-top-color: #00a14e;
 }
 
-/* Iframes (Google Map) and the static map */
-iframe, .map {
-    border-radius: 10px;
+/* https://codedamn.com/news/frontend/how-to-put-image-and-text-side-by-side-in-html */
+.purple, .redLoud, .red, .orange, .blue, .green, .imgSection, .embed, .map, table {
+    border-top-style: solid;
+    border-top-width: 1em;
+}
+
+.purple, .redLoud, .red, .orange, .blue, .green, table, nav, td, main, .imgSection {
+    padding: 20px;
+}
+
+.imgSection, .embed {
+    border-color: #169fb1;
+}
+
+iframe {
     border: none;
-    /* Adapted from CSS-Tricks (Cope, 2011) */
-    box-shadow: 0 0px 20px rgb(0 0 0 / 0.1);
-    /* End of adapted code */
     /* Adapted from HTML.Com (Wood, 2015-2020) */
     width: 100%;
     /* End of adapted code */
 }
 
-/* Iframes (Google Map) */
-iframe {
-    height: 500px;
+/* Google Map */
+.map {
+    height: 50vh;
+}
+
+/* Embedded Pages */
+.embed {
+    height: 70vh;
 }
 
 /* Logo image */
-.logo {
+.logo, td {
     margin-top: 20px;
 }
 
 /* Header for the layout page (contains logo and restaurant name) */
 header {
-    text-align: center;
     padding: 5px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    /* Adapted from CSS-Tricks (Cope, 2011) */
-    box-shadow: 0 0px 20px rgb(0 0 0 / 0.1);
-    /* End of adapted code */
-
-    background-color: #ad6500;
 }
 
-/* Navigation bar for layout page */
+/* Navigation bar */
 nav {
-    padding: 20px;
-    text-align: center;
     font-size: 22pt;
 }
 
 /* Footer */
 footer {
-    margin: 0px;
-    text-align: center;
+    margin-top: auto;
     padding: 10px;
 }
 
 /* Buttons, images and input fields */
 button, .submitButton, input, .imgFile {
-    /* Adapted from CSS-Tricks (Cope, 2011) */
-    box-shadow: 0 0px 20px rgb(0 0 0 / 0.1);
-    /* End of adapted code */
     padding: 5px;
     margin: 2px;
     border-radius: 5px;
     border-style: none;
 }
 
-    /* Buttons when clicked */
-    /* Adapted from StackOverflow (jansmolders86, 2013) */
-    .submitButton:active, button:active {
-        /* End of adapted code*/
-        background-color: #ad6500;
+.topnav, .topnav #myLinks, .topnav a.icon, .accountSection, main, .purple, .red, .orange, .blue, .green, table, .redLoud, iframe, .map, .imgSection {
+    border-radius: 10px;
+}
+
+main, .purple, .red, .orange, .blue, .green, table, .redLoud, iframe, .map, header, button, .submitButton, input, .imgFile, img, .imgSection {
+    /* Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 0px rgb(0 0 0 / 0.1);
+    /* End of adapted code */
+}
+
+table, td, nav, footer {
+    text-align: center;
+}
+
+td {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.block {
+    background-color: red;
+    height: 100px;
+    text-align: center;
+    font-size: 18pt;
+    background: #ffffff;
+    padding: 10px;
+}
+
+/* size of images */
+img {
+    border-radius: 10px;
+}
+
+/* Message Icons */
+.messageIcon {
+    height: 50px;
+    width: auto;
+    /* Remove shadow. Adapted from CSS-Tricks (Cope, 2011) */
+    box-shadow: 0 0px 0px rgb(0 0 0 / 0.1);
+    /* End of adapted code */
+}
+
+/* Mobile (https://www.smashingmagazine.com/2010/07/how-to-use-css3-media-queries-to-create-a-mobile-version-of-your-website/) */
+@media only screen and (max-device-width: 560px) {
+    img, .slideshow-container, .text {
+        width: 100%;
+        height: auto;
+        /* Added max width for desktop Firefox */
+        max-width: 30em;
     }
 
-    button:disabled {
-        color: #555555;
-        opacity: 50%;
+    /* Align message icon to centre for mobile users */
+    .messageIcon {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
+}
+
+@media only screen and (min-device-width: 560px) {
+    img {
+        max-height: 30em;
+    }
+
+    .purple, .redLoud, .red, .orange, .blue, .green {
+        display: grid;
+        grid-template-columns: 70px auto;
+        column-gap: 1px;
+    }
+
+    /* Align message icon to left for desktop users */
+    .messageIcon {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}
 
 /* Defaut light theme */
 /* Adapted from CSS-Tricks (Rendle, 2018) */
 @media (prefers-color-scheme: light) {
     /* End of adapted code */
-    body {
+    body, .submitButton, button {
         background-color: #d1d1d1;
-    }
-
-    /* Input fields */
-    input {
-        background-color: #ffffff;
         color: #000000;
     }
 
     /* Main content */
-    main {
+    main, .topnav #myLinks, .topnav a.icon, .accountSection {
         background-color: #e6e6e6;
     }
 
-    /* Links (when hovering the mouse cursor over them) */
-    a:hover {
-        color: #ad8500;
-    }
-
     /* Iframes (Google Map), static map and tables */
-    .map, iframe, table, .red, .orange, .blue, .green {
+    .map, iframe, table, .purple, .red, .orange, .blue, .green, .redLoud, .imgSection {
         background-color: #f2f2f2;
     }
 
-    /* Links */
-    a {
+    .topnav a {
         color: #000000;
     }
 
-    /* Buttons */
-    .submitButton, button {
-        background-color: #ffffff;
-        color: #000000;
+    .topnav .active {
+        color: white;
+    }
+}
+/* Defaut dark theme */
+/* Adapted from CSS-Tricks (Rendle, 2018) */
+@media (prefers-color-scheme: dark) {
+    /* End of adapted code */
+    body, .submitButton, button, input {
+        background-color: #1c1c1c;
+        color: #ffffff;
     }
 
-        /* Buttons (when hovering the mouse cursor over them) */
-        .submitButton:hover, button:hover {
-            background-color: #ad8500;
-            color: #ffffff;
-        }
+    /* Main content */
+    main, .topnav #myLinks, .topnav a.icon, .accountSection {
+        background-color: #2f2f2f;
+    }
+
+    /* Iframes (Google Map), static map and tables */
+    .map, iframe, table, .red, .purple, .orange, .blue, .green, .redLoud, .imgSection {
+        background-color: #424242;
+    }
+
+    .topnav a {
+        color: #ffffff;
+    }
+}
+
+/* Specific to StoneHouse */
+/* Header for the layout page (contains logo and restaurant name) */
+header, .submitButton:active, button:active, .submitButton:hover, button:hover {
+    background-color: #ad6500;
+}
+
+/* Links */
+a, a:hover {
+    color: #ad6500;
+}
+
+/* Defaut light theme */
+/* Adapted from CSS-Tricks (Rendle, 2018) */
+@media (prefers-color-scheme: light) {
+
+    /* Buttons (when hovering the mouse cursor over them) */
+    .submitButton:hover, button:hover {
+        color: #ffffff;
+    }
 }
 
 /* Defaut dark theme */
 /* Adapted from CSS-Tricks (Rendle, 2018) */
 @media (prefers-color-scheme: dark) {
-    /* End of adapted code */
-    body {
-        background-color: #1c1c1c;
-        color: #ffffff;
-    }
-
-    /* Input fields */
-    input {
-        background-color: #1c1c1c;
-        color: #ffffff;
-    }
-
-    /* Main content */
-    main {
-        background-color: #2f2f2f;
-    }
-
-    /* Links (when hovering the mouse cursor over them) */
-    a:hover {
-        color: #cfa723;
-    }
-
-    /* Iframes (Google Map), static map and tables */
-    .map, iframe, table {
-        background-color: #424242;
-    }
-
     /* Links */
-    a {
-        color: #FFFFFF;
-    }
-
-    /* Buttons */
-    .submitButton, button {
-        background-color: #1c1c1c;
-        color: #ffffff;
-    }
-
-    /* Buttons (when hovering the mouse cursor over them) */
-    .submitButton:hover, button:hover {
-        background-color: #cfa723;
+    a, a:hover {
+        color: #ad9f8b;
     }
 }
