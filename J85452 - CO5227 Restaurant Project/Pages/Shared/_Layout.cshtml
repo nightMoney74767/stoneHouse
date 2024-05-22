@@ -56,7 +56,7 @@
                 <a asp-area="" asp-page="/Checkout">Checkout</a>
                 <a asp-area="" asp-page="/Contact">Contact Us</a>
             </div>
-            <div class="accountSection" onclick="myFunction()">
+            <div class="accountSection">
                 @if (!SignInManager.IsSignedIn(User))
                 {
                     <a asp-page="/Account/Login">Login</a>
