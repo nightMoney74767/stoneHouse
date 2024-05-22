@@ -85,5 +85,5 @@ An entity relationship diagram (ERD) and an SQL script (called BuildTables.sql) 
 <img src="https://github.com/nightMoney74767/stoneHouse/blob/main/Other%20Items/CO5227ERD.png" alt="An image of the ERD"/>
 
 This database has been expanded with additional tables, which store users' baskets and user information (e.g. usernames and hashed passwords). The migrations table was made as a result of using Visual Studio's database migration tool for use with ASP.NET Core's Identity service. The tables that make up the database are included below:
-<img src="https://git.fse.network/2003943/j85452-co5227-assignment/-/raw/master/Other%20Items/SQL_Relationships__Main_.png" alt="An image of the ERD with new tables" />
-<img src="https://git.fse.network/2003943/j85452-co5227-assignment/-/raw/master/Other%20Items/SQL_Relationships__AspNetUsers_.png" alt="An image featuring the tables used in the login system" />
+<img src="https://github.com/nightMoney74767/stoneHouse/blob/main/Other%20Items/SQL_Relationships__Main_.png" alt="An image of the ERD with new tables" />
+<img src="https://github.com/nightMoney74767/stoneHouse/blob/main/Other%20Items/SQL_Relationships__AspNetUsers_.png" alt="An image featuring the tables used in the login system" />
